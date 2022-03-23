@@ -1,0 +1,25 @@
+1、新建脚本ntptime.sh并添加内容
+mkdir /opt/ntptime.sh
+vi /opt/ntptime.sh
+#!/bin/sh
+ntpdate  （时间服务器的ip）
+
+2、修改crontab文件，自动执行脚本。
+vi /etc/crontab
+#在path后添加（执行脚本的账号及根目录）:
+MAILTO=root
+HOME=/
+
+#在底部添加（每分钟同步一次）:
+*/1 * * * * root /opt/ntptime.sh
+
+启动crontab服务 
+service crond start 
+启动ntp服务 
+service ntpd start 
+
+其他命令：
+service crond start //启动服务
+service crond stop //关闭服务
+service crond restart //重启服务
+service crond reload //重新载入配置
